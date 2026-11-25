@@ -77,8 +77,8 @@ const beispiele = ['Nvidia', 'Anthropic', 'Rechenzentrum', 'Börsengang', 'Tesla
       const von = Math.max(a.location, loc - 10);
       const stueck = woerter.slice(von, bis).map((w) => {
         const n = w.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, '');
-        // Wortanfang reicht: "Rechenzentrum" trifft auch "Rechenzentren"
-        return begriffe.some((b) => { const k = b.replace(/[^\p{L}\p{N}-]/gu, ''); return n.startsWith(k.length > 5 ? k.slice(0, -2) : k); }) ? `<mark>${esc(w)}</mark>` : esc(w);
+        // Wortanfang reicht: "Rechenzentrum" trifft auch "Rechenzentren", in Bindestrich-Wörtern auch jeder Teil
+        return begriffe.some((b) => { const k = b.replace(/[^\p{L}\p{N}-]/gu, ''); const anfang = k.length > 5 ? k.slice(0, -2) : k; return n.startsWith(anfang) || n.split('-').some((teil) => teil.startsWith(anfang)); }) ? `<mark>${esc(w)}</mark>` : esc(w);
       });
       out.push({ id: a.id, text: (von > a.location ? '… ' : '') + stueck.join(' ') + (bis < (anker[i + 1]?.location ?? woerter.length) ? ' …' : '') });
       if (out.length === 3) break;

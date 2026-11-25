@@ -40,6 +40,7 @@ h1 { font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -.01em; }
 h2 { font-size: 1.5rem; }
 p { margin: 0; }
 mark { background: var(--mark); color: var(--mark-fg); padding: 0 .1em; }
+[hidden] { display: none !important; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
 .lab { display: block; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
