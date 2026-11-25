@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+import { KONFIG, folgen, transkript, woerter, zahl, u, BASE } from '../lib/daten';
+
+// Volltextsuche über alle Folgen samt Transkript. Pagefind baut den Index nach dem Build (npm run build),
+// lädt im Browser nur die Teile, die eine Suche braucht, und läuft ohne Server.
+// Treffer im Transkript zeigen die Minute: ein Klick spielt die Folge ab genau dieser Stelle.
+const mitTranskript = folgen.filter((f) => transkript(f).length);
+const gesamt = mitTranskript.reduce((n, f) => n + transkript(f).reduce((m, z) => m + woerter(z.t), 0), 0);
+const beispiele = ['Nvidia', 'Anthropic', 'Rechenzentrum', 'Börsengang', 'Tesla'];
+---
+<Base title={`Suche · ${KONFIG.name}`} description={`Durchsuche ${mitTranskript.length} Transkripte von ${KONFIG.name}: Wer hat was gesagt, in welcher Folge, bei welcher Minute.`}>
+  <section class="wrap hero">
+    <span class="lab">Suche</span>
+    <h1>Wer hat das gesagt?</h1>
+    <p class="sub">{zahl(Math.round(gesamt / 1000) * 1000)} gesprochene Wörter aus {mitTranskript.length} Transkripten. Jeder Treffer führt zur Minute in der Folge.</p>
+    <form class="such-form" action={u('suche/')} method="get" role="search" data-suche-form>
+      <label for="q" class="sr">Suchbegriff</label>
+      <input id="q" name="q" type="search" placeholder="Zum Beispiel: Nvidia" autocomplete="off" data-suche-feld />
+      <button class="btn" type="submit">Suchen</button>
+    </form>
+    <p class="beispiele">Probier: {beispiele.map((b, i) => <>{i > 0 && ' · '}<a href={u(`suche/?q=${encodeURIComponent(b)}`)} data-beispiel={b}>{b}</a></>)}</p>
+  </section>
+  <section class="wrap sec" aria-live="polite" data-base={BASE}>
+    <p class="status" data-status></p>
+    <ol class="treffer-liste" data-treffer></ol>
+    <button type="button" class="btn leise" data-mehr hidden>Mehr Treffer</button>
+    <noscript><p>Die Suche braucht JavaScript. Alle Folgen stehen auch im <a href={u('folgen/')}>Archiv</a>.</p></noscript>
+  </section>
+</Base>
+
+<script>
+  type Anker = { element: string; id: string; text?: string; location: number };
+  type Daten = { url: string; content: string; meta: Record<string, string>; anchors: Anker[]; locations: number[]; excerpt: string };
+  type Treffer = { id: string; data: () => Promise<Daten> };
+  type Pagefind = {
+    options: (o: object) => Promise<void>;
+    search: (q: string, o?: object) => Promise<{ results: Treffer[] }>;
+  };
+
+  let pf: Pagefind | undefined;
+  const SEITE = 8;
+  const base = () => document.querySelector<HTMLElement>('[data-base]')?.dataset.base ?? '/';
+
+  async function lade(): Promise<Pagefind | undefined> {
+    if (pf) return pf;
+    try {
+      pf = (await import(/* @vite-ignore */ `${base()}pagefind/pagefind.js`)) as Pagefind;
+      await pf.options({ excerptLength: 24, baseUrl: base() });
+      return pf;
+    } catch {
+      return undefined;
+    }
+  }
+
+  const sekunden = (id: string) => Number(id.replace(/^t-/, '')) || 0;
+  const uhr = (s: number) => {
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = Math.floor(s % 60);
+    return (h ? `${h}:${String(m).padStart(2, '0')}` : `${m}`) + `:${String(x).padStart(2, '0')}`;
+  };
+  const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+  // Fundstellen im Transkript: Wortposition -> nächster Anker davor -> Zeitmarke. Je Folge bis zu drei.
+  function fundstellen(d: Daten, q: string) {
+    const woerter = d.content.split(/\s+/);
+    const begriffe = q.toLowerCase().split(/\s+/).filter((b) => b.length > 1);
+    const anker = d.anchors.filter((a) => a.id?.startsWith('t-')).sort((a, b) => a.location - b.location);
+    const out: { id: string; text: string }[] = [];
+    const gesehen = new Set<string>();
+    for (const loc of d.locations) {
+      const i = anker.findLastIndex((x) => x.location <= loc);
+      const a = anker[i];
+      if (!a || gesehen.has(a.id)) continue;
+      gesehen.add(a.id);
+      // Ausschnitt bleibt im Absatz des Treffers: bis zum nächsten Anker, höchstens 16 Wörter nach dem Treffer
+      const bis = Math.min(loc + 16, anker[i + 1]?.location ?? woerter.length);
+      const von = Math.max(a.location, loc - 10);
+      const stueck = woerter.slice(von, bis).map((w) => {
+        const n = w.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, '');
+        // Wortanfang reicht: "Rechenzentrum" trifft auch "Rechenzentren"
+        return begriffe.some((b) => { const k = b.replace(/[^\p{L}\p{N}-]/gu, ''); return n.startsWith(k.length > 5 ? k.slice(0, -2) : k); }) ? `<mark>${esc(w)}</mark>` : esc(w);
+      });
+      out.push({ id: a.id, text: (von > a.location ? '… ' : '') + stueck.join(' ') + (bis < (anker[i + 1]?.location ?? woerter.length) ? ' …' : '') });
+      if (out.length === 3) break;
+    }
+    return out;
+  }
+
+  function karte(d: Daten, q: string) {
+    const m = d.meta;
+    const stellen = fundstellen(d, q);
+    const play = (id: string) => `data-play="${esc(m.nummer)}" data-play-src="${esc(m.audio)}" data-play-titel="${esc(m.titel)}" data-play-url="${esc(d.url)}" data-play-zeit="${sekunden(id)}"`;
+    return `<li class="treffer">
+      <a class="tr-kopf" href="${esc(d.url)}"><span class="lab">${esc(m.datum ?? '')}</span><b>${esc(m.titel ?? '')}</b></a>
+      ${stellen.length ? `<ol class="stellen">${stellen.map((s) => `<li>
+          <a class="stelle-play" href="${esc(d.url)}#${s.id}" ${play(s.id)} aria-label="Ab ${uhr(sekunden(s.id))} hören">${uhr(sekunden(s.id))}</a>
+          <a class="stelle-text" href="${esc(d.url)}#${s.id}">${s.text}</a></li>`).join('')}</ol>`
+        : `<p class="stelle-text">${d.excerpt}</p>`}
+    </li>`;
+  }
+
+  let laufende = 0;
+  let alle: Treffer[] = [];
+  let gezeigt = 0;
+
+  async function suche(q: string) {
+    const nr = ++laufende;
+    const status = document.querySelector<HTMLElement>('[data-status]')!;
+    const liste = document.querySelector<HTMLElement>('[data-treffer]')!;
+    const mehr = document.querySelector<HTMLElement>('[data-mehr]')!;
+    if (q.trim().length < 2) { liste.innerHTML = ''; status.textContent = ''; mehr.hidden = true; return; }
+    const p = await lade();
+    if (!p) { status.textContent = 'Die Suche entsteht beim Build (npm run build) und ist im Dev-Server nicht da.'; return; }
+    status.textContent = 'Suche läuft …';
+    const r = await p.search(q);
+    if (nr !== laufende) return;
+    alle = r.results;
+    gezeigt = 0;
+    liste.innerHTML = '';
+    status.textContent = alle.length ? `${alle.length} ${alle.length === 1 ? 'Folge' : 'Folgen'} mit „${q}“` : `Keine Folge mit „${q}“. Versuch ein anderes Wort.`;
+    await zeigeMehr(q, nr);
+  }
+
+  async function zeigeMehr(q: string, nr = laufende) {
+    const liste = document.querySelector<HTMLElement>('[data-treffer]')!;
+    const mehr = document.querySelector<HTMLElement>('[data-mehr]')!;
+    const teil = await Promise.all(alle.slice(gezeigt, gezeigt + SEITE).map((t) => t.data()));
+    if (nr !== laufende) return;
+    liste.insertAdjacentHTML('beforeend', teil.map((d) => karte(d, q)).join(''));
+    gezeigt += teil.length;
+    mehr.hidden = gezeigt >= alle.length;
+  }
+
+  function init() {
+    const feld = document.querySelector<HTMLInputElement>('[data-suche-feld]');
+    if (!feld || feld.dataset.bereit) return;
+    feld.dataset.bereit = '1';
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) feld.value = q;
+    if (feld.value) suche(feld.value);
+    else feld.focus();
+    let warte: number | undefined;
+    feld.addEventListener('input', () => {
+      clearTimeout(warte);
+      warte = window.setTimeout(() => {
+        const url = new URL(location.href);
+        if (feld.value) url.searchParams.set('q', feld.value); else url.searchParams.delete('q');
+        history.replaceState(history.state, '', url);
+        suche(feld.value);
+      }, 220);
+    });
+  }
+
+  document.addEventListener('submit', (e) => {
+    if (!(e.target as Element).closest('[data-suche-form]')) return;
+    e.preventDefault();
+    const feld = document.querySelector<HTMLInputElement>('[data-suche-feld]')!;
+    const url = new URL(location.href);
+    url.searchParams.set('q', feld.value);
+    history.replaceState(history.state, '', url);
+    suche(feld.value);
+  });
+  document.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLAnchorElement>('[data-beispiel]');
+    if (b) {
+      e.preventDefault();
+      const feld = document.querySelector<HTMLInputElement>('[data-suche-feld]')!;
+      feld.value = b.dataset.beispiel!;
+      feld.dispatchEvent(new Event('input'));
+      return;
+    }
+    if ((e.target as Element).closest('[data-mehr]')) zeigeMehr(document.querySelector<HTMLInputElement>('[data-suche-feld]')!.value);
+  });
+  // Beim ersten Laden und nach jedem Seitenwechsel
+  document.addEventListener('astro:page-load', init);
+  init();
+</script>

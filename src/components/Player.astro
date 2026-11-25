@@ -1,0 +1,148 @@
+---
+// Player am unteren Rand. Bleibt beim Seitenwechsel stehen und spielt weiter (ClientRouter + transition:persist).
+// Startet nur über einen Klick auf ein Element mit data-play. Vorher lädt nichts: kein Request an den Audio-Server.
+// Folgenseiten hören auf das Ereignis "pk:zeit" und markieren Kapitel und Transkriptzeile.
+import { KONFIG } from '../lib/daten';
+---
+<div class="player" id="player" transition:persist="player" data-player data-name={KONFIG.kurzname} hidden>
+  <audio preload="none" data-audio></audio>
+  <div class="pl-fortschritt" aria-hidden="true"><span data-balken></span></div>
+  <div class="wrap pl-reihe">
+    <button type="button" class="pl-knopf pl-haupt" data-pl="toggle" aria-label="Abspielen">
+      <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z" /></svg>
+      <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z" /></svg>
+    </button>
+    <button type="button" class="pl-knopf pl-sprung" data-pl="zurueck" aria-label="15 Sekunden zurück">−15</button>
+    <button type="button" class="pl-knopf pl-sprung" data-pl="vor" aria-label="30 Sekunden vor">+30</button>
+    <a class="pl-titel" data-titel href="#">
+      <span class="lab" data-kapitel>{KONFIG.kurzname}</span>
+      <b data-name></b>
+    </a>
+    <div class="pl-zeit">
+      <label class="sr" for="pl-pos">Position</label>
+      <input id="pl-pos" type="range" min="0" max="1000" value="0" step="1" data-pos />
+      <span class="pl-t"><span data-jetzt>0:00</span> / <span data-gesamt>0:00</span></span>
+    </div>
+    <button type="button" class="pl-knopf pl-tempo" data-pl="tempo" aria-label="Tempo 1-fach, ändern">1×</button>
+    <button type="button" class="pl-knopf pl-zu" data-pl="zu" aria-label="Player schließen">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Ein Player für die ganze Seite. Läuft genau einmal, das Element überlebt jeden Seitenwechsel.
+  type Spur = { id: string; src: string; titel: string; url: string; kapitel?: { t: number; titel: string }[] };
+
+  const box = document.querySelector<HTMLElement>('[data-player]')!;
+  const audio = box.querySelector<HTMLAudioElement>('[data-audio]')!;
+  const pos = box.querySelector<HTMLInputElement>('[data-pos]')!;
+  const balken = box.querySelector<HTMLElement>('[data-balken]')!;
+  const jetzt = box.querySelector<HTMLElement>('[data-jetzt]')!;
+  const gesamt = box.querySelector<HTMLElement>('[data-gesamt]')!;
+  const name = box.querySelector<HTMLElement>('[data-name]')!;
+  const kapitelEl = box.querySelector<HTMLElement>('[data-kapitel]')!;
+  const titelLink = box.querySelector<HTMLAnchorElement>('[data-titel]')!;
+  const tempoKnopf = box.querySelector<HTMLElement>('[data-pl="tempo"]')!;
+  const SHOW = box.dataset.name ?? '';
+  const TEMPI = [1, 1.25, 1.5, 1.75, 2, 0.75];
+  let spur: Spur | undefined;
+  let ziehen = false;
+
+  const uhr = (s: number) => {
+    if (!Number.isFinite(s)) return '0:00';
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = Math.floor(s % 60);
+    return (h ? `${h}:${String(m).padStart(2, '0')}` : `${m}`) + `:${String(x).padStart(2, '0')}`;
+  };
+  // Position je Folge merken, damit Weiterhören klappt. Nur in diesem Browser.
+  const merke = () => { try { if (spur) localStorage.setItem(`pk-pos-${spur.id}`, String(Math.floor(audio.currentTime))); } catch {} };
+  const gemerkt = (id: string) => { try { return Number(localStorage.getItem(`pk-pos-${id}`)) || 0; } catch { return 0; } };
+
+  function lade(neu: Spur, ab?: number) {
+    if (spur?.id !== neu.id) {
+      merke();
+      spur = neu;
+      audio.src = neu.src;
+      name.textContent = neu.titel;
+      titelLink.href = neu.url;
+      kapitelEl.textContent = SHOW;
+      if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: neu.titel, artist: SHOW, album: SHOW });
+    }
+    box.hidden = false;
+    document.documentElement.classList.add('mit-player');
+    const start = ab ?? (audio.currentTime || gemerkt(neu.id));
+    const los = () => { if (start) audio.currentTime = start; audio.play().catch(() => {}); };
+    if (audio.readyState >= 1) los();
+    else audio.addEventListener('loadedmetadata', los, { once: true });
+    if (audio.readyState < 1) audio.load();
+  }
+
+  // Klick auf irgendein data-play auf irgendeiner Seite. data-play-zeit springt an eine Stelle.
+  // Capture-Phase: Der Router hört auch auf Klicks und würde #t-Links sonst vorher als Sprung ausführen.
+  document.addEventListener('click', (e) => {
+    const el = (e.target as Element).closest<HTMLElement>('[data-play]');
+    if (!el) return;
+    e.preventDefault();
+    const d = el.dataset;
+    const zeit = d.playZeit ? Number(d.playZeit) : undefined;
+    if (spur?.id === d.play && zeit === undefined) { audio.paused ? audio.play() : audio.pause(); return; }
+    let kapitel: Spur['kapitel'];
+    try { kapitel = d.playKapitel ? JSON.parse(d.playKapitel) : undefined; } catch {}
+    lade({ id: d.play!, src: d.playSrc!, titel: d.playTitel ?? '', url: d.playUrl ?? location.pathname, kapitel }, zeit);
+  }, true);
+
+  box.addEventListener('click', (e) => {
+    const k = (e.target as Element).closest<HTMLElement>('[data-pl]')?.dataset.pl;
+    if (k === 'toggle') audio.paused ? audio.play() : audio.pause();
+    if (k === 'zurueck') audio.currentTime = Math.max(0, audio.currentTime - 15);
+    if (k === 'vor') audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + 30);
+    if (k === 'tempo') {
+      const i = (TEMPI.indexOf(audio.playbackRate) + 1) % TEMPI.length;
+      audio.playbackRate = TEMPI[i];
+      const text = String(TEMPI[i]).replace('.', ',');
+      tempoKnopf.textContent = `${text}×`;
+      tempoKnopf.setAttribute('aria-label', `Tempo ${text}-fach, ändern`);
+    }
+    if (k === 'zu') {
+      merke();
+      audio.pause();
+      box.hidden = true;
+      document.documentElement.classList.remove('mit-player');
+      melde();
+    }
+  });
+
+  pos.addEventListener('input', () => { ziehen = true; jetzt.textContent = uhr((Number(pos.value) / 1000) * (audio.duration || 0)); });
+  pos.addEventListener('change', () => { audio.currentTime = (Number(pos.value) / 1000) * (audio.duration || 0); ziehen = false; });
+
+  function melde() {
+    document.dispatchEvent(new CustomEvent('pk:zeit', { detail: { id: spur?.id, t: audio.currentTime, laeuft: !audio.paused && !box.hidden } }));
+  }
+  let letzte = 0;
+  audio.addEventListener('timeupdate', () => {
+    const t = audio.currentTime, d = audio.duration || 0;
+    if (!ziehen) { pos.value = String(d ? Math.round((t / d) * 1000) : 0); jetzt.textContent = uhr(t); }
+    pos.setAttribute('aria-valuetext', `${uhr(t)} von ${uhr(d)}`);
+    balken.style.transform = `scaleX(${d ? t / d : 0})`;
+    const k = spur?.kapitel?.filter((x) => x.t <= t).pop();
+    kapitelEl.textContent = k ? k.titel : SHOW;
+    if (Math.abs(t - letzte) > 0.9) { letzte = t; melde(); }
+    if (Math.floor(t) % 10 === 0) merke();
+  });
+  audio.addEventListener('loadedmetadata', () => { gesamt.textContent = uhr(audio.duration); });
+  audio.addEventListener('play', () => { box.classList.add('spielt'); box.querySelector('.pl-haupt')!.setAttribute('aria-label', 'Pause'); melde(); });
+  audio.addEventListener('pause', () => { box.classList.remove('spielt'); box.querySelector('.pl-haupt')!.setAttribute('aria-label', 'Abspielen'); merke(); melde(); });
+  audio.addEventListener('ended', () => { try { if (spur) localStorage.removeItem(`pk-pos-${spur.id}`); } catch {} });
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('seekbackward', () => { audio.currentTime -= 15; });
+    navigator.mediaSession.setActionHandler('seekforward', () => { audio.currentTime += 30; });
+  }
+  // Der Router ersetzt beim Seitenwechsel die Attribute von <html>: Platz für den Player mitnehmen
+  document.addEventListener('astro:before-swap', (e) => e.newDocument.documentElement.classList.toggle('mit-player', !box.hidden));
+  document.addEventListener('astro:page-load', melde);
+  document.addEventListener('keydown', (e) => {
+    if (box.hidden || (e.target as Element).closest('input, textarea, select, [contenteditable]')) return;
+    if (e.key === 'k') { e.preventDefault(); audio.paused ? audio.play() : audio.pause(); }
+  });
+</script>

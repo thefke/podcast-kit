@@ -1,0 +1,730 @@
+[
+ {
+  "nummer": 617,
+  "titel": "Erst kommt der Jensen, dann die Moral | POTUS ex machina",
+  "datum": "2026-11-25",
+  "dauer": 3928,
+  "audio": "https://traffic.megaphone.fm/LINDALA3000594380.mp3",
+  "guid": "d6d29d00-e850-11f1-a476-379cac65d26c",
+  "beschreibung": "Jensen Huang ist zurück an der Spitze von Nvidia, und auf dem Weg dorthin hat sich der Präsident persönlich ins Board Meeting eingewählt. Wer saß in dem War Room aus dem Silicon Valley, der Trump und JD Vance überzeugt hat, und was liegt in deren Depots? Was bleibt von Governance, wenn das Weiße Haus über einen CEO entscheidet? Dazu droht Trump US-Firmen mit Strafen für Datacenter im Ausland, während Malaysia, Indonesien und Thailand gerade zweistellige Gigawatt planen. Für wen eigentlich? Agent Klaus hat nachgerechnet, wohin Nvidias Chips gehen, und ein neuer Live-Faktenchecker prüft ab sofort mit, was in der Sendung gesagt wird. Außerdem: Databricks sammelt Geld zu 225 Milliarden Dollar Bewertung, CrowdStrike kauft Zscaler für 44 Milliarden und Mercedes darf in Europa vor Tesla autonom fahren. In der Schmuddelecke: ein umbenannter Chat bei xAI, Musks Stiftung spendet vor allem an Musks Stiftung, und WIRED zeigt, wer im Silicon Valley den Account Visegrad24 finanziert. Zum Schluss zeigt Glöckler die neue Doppelgänger-Webseite, gebaut mit Klaus.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Jensen ist zurück"
+   },
+   {
+    "t": 374,
+    "titel": "War Room"
+   },
+   {
+    "t": 999,
+    "titel": "Datacenter-Bann"
+   },
+   {
+    "t": 1159,
+    "titel": "Agent Klaus: Chips für China"
+   },
+   {
+    "t": 1363,
+    "titel": "Live-Faktenchecker"
+   },
+   {
+    "t": 1719,
+    "titel": "Megaspeed-Blacklist"
+   },
+   {
+    "t": 2063,
+    "titel": "Databricks"
+   },
+   {
+    "t": 2358,
+    "titel": "CrowdStrike kauft Zscaler"
+   },
+   {
+    "t": 2677,
+    "titel": "Mercedes vor Tesla"
+   },
+   {
+    "t": 2874,
+    "titel": "xAI vermietet Rechenzeit"
+   },
+   {
+    "t": 3022,
+    "titel": "Musks Stiftung"
+   },
+   {
+    "t": 3175,
+    "titel": "Visegrad24"
+   },
+   {
+    "t": 3402,
+    "titel": "Neue Webseite"
+   }
+  ],
+  "slug": "617-erst-kommt-der-jensen-dann-die-moral-potus-ex-machina"
+ },
+ {
+  "nummer": 616,
+  "titel": "Die Hälfte der Nvidia-Umsätze lief über Singapur? Healthwashing & Siliziumwaffen",
+  "datum": "2026-11-21",
+  "dauer": 5360,
+  "audio": "https://traffic.megaphone.fm/LINDALA4400735503.mp3",
+  "guid": "7955895a-e54c-11f1-ac95-87884dea90d2",
+  "beschreibung": "Der Anthropic-Börsengang ist gelaufen, und der Pop kam. Wer hat verkauft, wer kauft nach, und wie groß kann Anthropic noch werden? Ist Claude nur ein besserer Webseitenbaukasten, oder ersetzt KI am Ende gar nicht die Software, sondern den Menschen davor? OpenAI erntet für GPT-6.2 harsche Kritik und lobt sich in einem eigenen Bericht selbst, während ein Bündnis aus Forschern mit dem MisAnthropic Statement gegen Anthropic mobil macht. Bei Nvidia stoppt die neue Führung die Verkäufe nach China, und die Financial Times rechnet vor, wie viel Umsatz über Singapur lief. Dazu: fast eine Million lizenzierte Chips für China, Warnungen von Alibaba und Tencent, ein Microsoft-Deal mit Bytedance und ein Short-Seller, der Nvidias Nummer drei ins Visier nimmt. Außerdem sammelt Ramp Geld zu 70 Milliarden Dollar Bewertung, Isomorphic Labs bekommt 5 Milliarden, und Darios Rede an der Börsenglocke wirft die Frage auf, ob Krebsheilung das neue PR-Versprechen der KI ist. In der Schmuddelecke: TikTok für Europa, SpaceX-Kredite nur für die Erde, fliegende Modems der Ukraine, Musks halbe Milliarde für die Midterms, Metas Schulhof-Strategie, Metas KI liest Signal mit und neue Berichte über Jensen Huangs Führungsstil.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Anthropic-IPO"
+   },
+   {
+    "t": 785,
+    "titel": "GPT-6.2"
+   },
+   {
+    "t": 871,
+    "titel": "MisAnthropic"
+   },
+   {
+    "t": 1637,
+    "titel": "Jagged Frontier"
+   },
+   {
+    "t": 1744,
+    "titel": "Nvidia stoppt China"
+   },
+   {
+    "t": 1836,
+    "titel": "Nvidia über Singapur"
+   },
+   {
+    "t": 1960,
+    "titel": "Chip-Lizenzen"
+   },
+   {
+    "t": 2033,
+    "titel": "Alibaba und Tencent"
+   },
+   {
+    "t": 2645,
+    "titel": "Microsoft und Bytedance"
+   },
+   {
+    "t": 2802,
+    "titel": "Muddy Waters"
+   },
+   {
+    "t": 3038,
+    "titel": "Ramp"
+   },
+   {
+    "t": 3208,
+    "titel": "Isomorphic Labs"
+   },
+   {
+    "t": 4117,
+    "titel": "TikTok Europa"
+   },
+   {
+    "t": 4212,
+    "titel": "SpaceX-Kredite"
+   },
+   {
+    "t": 4285,
+    "titel": "Fliegende Modems"
+   },
+   {
+    "t": 4573,
+    "titel": "Musk und Midterms"
+   },
+   {
+    "t": 4778,
+    "titel": "Instagram an Schulen"
+   },
+   {
+    "t": 4848,
+    "titel": "Muse liest Signal"
+   },
+   {
+    "t": 4999,
+    "titel": "Jensen Huang"
+   }
+  ],
+  "slug": "616-die-haelfte-der-nvidia-umsaetze-lief-ueber-singapur-healthwa"
+ },
+ {
+  "nummer": 615,
+  "titel": "Schlagen Tech-IPOs den Markt? | Baidu als Warnsignal für Google | Jensen kommt zurück?",
+  "datum": "2026-11-18",
+  "dauer": 4017,
+  "audio": "https://traffic.megaphone.fm/LINDALA3529814524.mp3",
+  "guid": "8029c1a2-e2e9-11f1-b25b-b3eb26deb3fd",
+  "beschreibung": "Kommt Jensen Huang zurück? Eine Petition für den ehemaligen Nvidia-Chef sammelt Unterschriften von Elon Musk bis Garry Tan, die New York Post berichtet über Wutausbrüche im Büro, und im Weißen Haus streiten Lutnick und Bessent über die Verantwortung. Dazu die Frage, welche Rolle Singapur und Malaysia bei den Chipverkäufen gespielt haben, was forensische Spuren in den Modellen von DeepSeek und Moonshot verraten und warum die USA jetzt den Fernzugriff auf KI-Chips beschränken. Nach dem Anthropic Monday geht es um den Börsengang: Lohnt sich das Zeichnen, warum liegen die größten IPOs des Jahres im Schnitt 20 Prozent unter Wasser, und was steckt hinter den 5 Milliarden von Altimeter? Außerdem ein Nachtrag zu Jensen und der Frage, wie viele Aktionäre es für ein Comeback bräuchte, Teslas Cybercab für Privatkunden, Baidus sechstes Quartal mit sinkendem Umsatz, gefälschte Buchungsbestätigungen nach dem Hack bei Kempinski und eine Erwartung an die Nvidia-Zahlen.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Jensen-Comeback?"
+   },
+   {
+    "t": 199,
+    "titel": "Schmuggel über Singapur"
+   },
+   {
+    "t": 1043,
+    "titel": "DeepSeek auf Blackwell"
+   },
+   {
+    "t": 1253,
+    "titel": "Fernzugriff auf Chips"
+   },
+   {
+    "t": 1417,
+    "titel": "Anthropic-IPO"
+   },
+   {
+    "t": 1851,
+    "titel": "IPOs unter Wasser"
+   },
+   {
+    "t": 2141,
+    "titel": "Altimeter setzt 5 Mrd."
+   },
+   {
+    "t": 2372,
+    "titel": "Dario-Jensen-Trade"
+   },
+   {
+    "t": 2668,
+    "titel": "Nachtrag Jensen"
+   },
+   {
+    "t": 3037,
+    "titel": "Cybercab"
+   },
+   {
+    "t": 3244,
+    "titel": "Baidu"
+   },
+   {
+    "t": 3445,
+    "titel": "Kempinski-Hack"
+   },
+   {
+    "t": 3648,
+    "titel": "Nvidia-Zahlen"
+   }
+  ],
+  "slug": "615-schlagen-tech-ipos-den-markt-baidu-als-warnsignal-fuer-googl"
+ },
+ {
+  "nummer": 614,
+  "titel": "Loose D**ks Sink Chips: Jensen Huang | Kein OpenAI-IPO 2027? | Pip zeichnet Anthropic-IPO",
+  "datum": "2026-11-14",
+  "dauer": 3974,
+  "audio": "https://traffic.megaphone.fm/LINDALA6716721109.mp3",
+  "guid": "59f2042a-df80-11f1-bed4-172c7068ecb5",
+  "beschreibung": "Jensen Huang tritt als Nvidia-Chef zurück, und fast stündlich kommen neue Details ans Licht. Warum hat das Board erst jetzt gehandelt, was bedeutet der Abgang für Nvidia, und könnte er die KI-Blase sogar stabilisieren? Dazu ein Trade für die nächsten zwei Jahre und eine Prognose für die Margen der Hyperscaler. Anthropics Börsengang ist sechsfach überzeichnet, Goldman Sachs traut der Firma 600 Milliarden Dollar Umsatz zu, und zwischen den Hosts wird eine Call-Option verhandelt. OpenAI legt Quartalszahlen vor: Was passiert, wenn der eigene Börsengang ausbleibt? Im zweiten Teil allein am Mikrofon: CoreWeave nach den Zahlen, Trump Medias Truth API, der Remote Labor Index, OpenAI kauft ein Reise-Start-up, SpaceX bestellt bei Singulus, die Tech-Elite wechselt die Seiten, Helsing baut eine Alternative zu Palantir und Agile Robots sammelt 500 Millionen ein.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Jensen tritt zurück"
+   },
+   {
+    "t": 1009,
+    "titel": "Familienunternehmen Nvidia"
+   },
+   {
+    "t": 1181,
+    "titel": "Long Google, Short Nvidia"
+   },
+   {
+    "t": 1547,
+    "titel": "Anthropic-IPO"
+   },
+   {
+    "t": 1789,
+    "titel": "Goldmans 600 Milliarden"
+   },
+   {
+    "t": 1886,
+    "titel": "Claude gegen Office"
+   },
+   {
+    "t": 2165,
+    "titel": "OpenAI-Quartal"
+   },
+   {
+    "t": 2427,
+    "titel": "Merger-Szenario"
+   },
+   {
+    "t": 2834,
+    "titel": "CoreWeave"
+   },
+   {
+    "t": 3024,
+    "titel": "Truth API"
+   },
+   {
+    "t": 3097,
+    "titel": "Remote Labor Index"
+   },
+   {
+    "t": 3255,
+    "titel": "OpenAI kauft Odessia"
+   },
+   {
+    "t": 3359,
+    "titel": "ZipRecruiter"
+   },
+   {
+    "t": 3412,
+    "titel": "Singulus"
+   },
+   {
+    "t": 3530,
+    "titel": "Tech-Elite wechselt Seiten"
+   },
+   {
+    "t": 3625,
+    "titel": "Helsing gegen Palantir"
+   },
+   {
+    "t": 3718,
+    "titel": "Agile Robots"
+   }
+  ],
+  "slug": "614-loose-d-ks-sink-chips-jensen-huang-kein-openai-ipo-2027-pip"
+ },
+ {
+  "nummer": 613,
+  "titel": "Agents mit Benefits",
+  "datum": "2026-11-11",
+  "dauer": 3075,
+  "audio": "https://traffic.megaphone.fm/LINDALA9524020064.mp3",
+  "guid": "2b79148c-dd67-11f1-8013-c3629554372a",
+  "beschreibung": "Nvidia-Chef Jensen Huang und eine mutmaßliche Spionin: Seit wann wusste die US-Regierung Bescheid? Anthropic bringt kurz vor dem Börsengang Fable 5.2 heraus, was setzen OpenAI und Google dagegen? Google macht seine TPUs zu Spezialchips. Ist es Zeit, den Peak Nvidia auszurufen? Das Wall Street Journal findet mehr Bürojobs statt weniger, und ein Paradox aus den Achtzigern wird wieder aktuell. In der Schmuddelecke: eine Spendengala in Saint-Tropez.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Huang-Affäre"
+   },
+   {
+    "t": 284,
+    "titel": "Megaspeed-Ermittlung"
+   },
+   {
+    "t": 831,
+    "titel": "Fable & Mythos 5.2"
+   },
+   {
+    "t": 964,
+    "titel": "Anthropic-Roadshow"
+   },
+   {
+    "t": 1362,
+    "titel": "Googles Spezial-TPUs"
+   },
+   {
+    "t": 1722,
+    "titel": "Peak Nvidia"
+   },
+   {
+    "t": 2038,
+    "titel": "Muse Ember"
+   },
+   {
+    "t": 2214,
+    "titel": "Bürojobs trotz KI"
+   },
+   {
+    "t": 2536,
+    "titel": "Solow-Paradox"
+   },
+   {
+    "t": 2914,
+    "titel": "Angermayer-Gala"
+   }
+  ],
+  "slug": "613-agents-mit-benefits"
+ },
+ {
+  "nummer": 612,
+  "titel": "Midterms: Gut für alle außer Nvidia | Anthropic-IPO: Investoren skeptisch | Apple deckelt Tokens",
+  "datum": "2026-11-07",
+  "dauer": 4929,
+  "audio": "https://traffic.megaphone.fm/LINDALA6722880346.mp3",
+  "guid": "fb8a9166-da2c-11f1-89af-0b0e359607af",
+  "beschreibung": "Die Midterms bringen den blauen Tsunami, sogar Texas kippt. Die Börse feiert erst und verkauft dann, nachdem die Wähler in fast allen lokalen Abstimmungen gegen neue Rechenzentren gestimmt haben. Ein Hörer will wissen, wie viele Gigawatt jetzt wackeln. Was heißt das für Nvidia? Und für Elon Musk, der eine halbe Milliarde in den Wahlkampf gesteckt hat und plötzlich alte Tweets löscht? Ein zweiter Hörer fragt, wie viel vom Cloud-Wachstum der Hyperscaler echtes Geschäft ist und wie viel KI-Hype. Große Investoren zweifeln laut Wall Street Journal an der angepeilten Billionen-Bewertung für den Anthropic-Börsengang, und auf Prediction Markets wird gewettet, ob er dieses Jahr überhaupt noch kommt. Apple kürzt seinen Ingenieuren das tägliche KI-Budget, ChatGPT will schon ein Fünftel so viele Suchen wie Google beantworten, OpenAI bringt ein neues Cyber-Modell. Die Forscher von METR durften ein Quartal lang bei Anthropic hinter die Kulissen schauen. Claude soll bald Kontodaten auswerten, während das Erbe der Boomer zu den Neobanken wandert. Außerdem: Cloudflare und Airbnb Earnings, Christian Angermayers Enhanced Group übernimmt die DEAG, und Tesla stellt den Cybertruck ein.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Blauer Tsunami"
+   },
+   {
+    "t": 143,
+    "titel": "Börsenreaktion"
+   },
+   {
+    "t": 186,
+    "titel": "Abstimmungen gegen Rechenzentren"
+   },
+   {
+    "t": 300,
+    "titel": "Wirtschaft unter Demokraten"
+   },
+   {
+    "t": 740,
+    "titel": "Hörerfrage: Gigawatt"
+   },
+   {
+    "t": 1063,
+    "titel": "Musk und Texas"
+   },
+   {
+    "t": 1729,
+    "titel": "Hörerfrage: Cloud-Wachstum"
+   },
+   {
+    "t": 2282,
+    "titel": "Anthropic-IPO"
+   },
+   {
+    "t": 2723,
+    "titel": "Apple-KI-Budgets"
+   },
+   {
+    "t": 2899,
+    "titel": "ChatGPT-Suche"
+   },
+   {
+    "t": 3156,
+    "titel": "GPT-6 Cyber"
+   },
+   {
+    "t": 3197,
+    "titel": "METR bei Anthropic"
+   },
+   {
+    "t": 3667,
+    "titel": "Claude Personal Finance"
+   },
+   {
+    "t": 4300,
+    "titel": "Cloudflare"
+   },
+   {
+    "t": 4550,
+    "titel": "Airbnb"
+   },
+   {
+    "t": 4621,
+    "titel": "DEAG-Übernahme"
+   },
+   {
+    "t": 4747,
+    "titel": "Cybertruck"
+   }
+  ],
+  "slug": "612-midterms-gut-fuer-alle-ausser-nvidia-anthropic-ipo-investore"
+ },
+ {
+  "nummer": 611,
+  "titel": "Tokens teurer als Gehälter bei Anthropic? Putzroboter mit Werbepause",
+  "datum": "2026-11-04",
+  "dauer": 4300,
+  "audio": "https://traffic.megaphone.fm/LINDALA8770204648.mp3",
+  "guid": "b7836ff4-d7d6-11f1-9bc8-af24c325ff7f",
+  "beschreibung": "Anthropic legt kurz vor dem Börsengang die Zahlen fürs dritte Quartal vor: 17 Milliarden Umsatz, ein positiver operativer Cashflow und erstmals eine Aufteilung nach USA und Rest der Welt. Dazu die Frage, wie Privatanleger in Europa an Aktien kommen, warum Anthropic intern mehr für Tokens ausgibt als für Gehälter und ob 895 Milliarden an Rechenzeit-Verpflichtungen eher Hauskredit oder Geschäftsplan sind. OpenAI sammelt für seine neue Runde deutlich weniger ein als geplant, während DeepSeek in China 16 Milliarden einwirbt. Meta hat still einen humanoiden Roboter mit einem chinesischen Start-up gebaut, Googles erster Rechenzentrums-Satellit schreibt Gedichte, und Googles Energiechefin rechnet vor, was Rechenzentren im All heute kosten. OpenAI bereitet seine Politik nach den Midterms vor und findet ein neues Wort für Rechenzentren. Außerdem: Palantir-Zahlen, Spotifys KI-Remix-Abo, Nordkorea und der Binance-Hack, Datenlecks in Lovable-Apps, die Bewegung Occupy SaaS und eine Forschungsarbeit, nach der Sprachmodelle die Gewichte anderer Modelle lesen und umschreiben können.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Anthropic Q3-Zahlen"
+   },
+   {
+    "t": 719,
+    "titel": "IPO für Privatanleger"
+   },
+   {
+    "t": 910,
+    "titel": "Tokens statt Gehälter"
+   },
+   {
+    "t": 1697,
+    "titel": "OpenAI-Finanzierung"
+   },
+   {
+    "t": 2224,
+    "titel": "DeepSeek-Runde"
+   },
+   {
+    "t": 2365,
+    "titel": "Metas Humanoid"
+   },
+   {
+    "t": 2823,
+    "titel": "Google-Satellit"
+   },
+   {
+    "t": 3030,
+    "titel": "Rechenzentren im All"
+   },
+   {
+    "t": 3191,
+    "titel": "OpenAI nach den Midterms"
+   },
+   {
+    "t": 3388,
+    "titel": "Palantir"
+   },
+   {
+    "t": 3599,
+    "titel": "Spotify-Remix"
+   },
+   {
+    "t": 3728,
+    "titel": "Binance-Hack"
+   },
+   {
+    "t": 3834,
+    "titel": "Lovable-Lücken"
+   },
+   {
+    "t": 4018,
+    "titel": "Occupy SaaS"
+   },
+   {
+    "t": 4069,
+    "titel": "Weight-Space Programming"
+   }
+  ],
+  "slug": "611-tokens-teurer-als-gehaelter-bei-anthropic-putzroboter-mit-we"
+ },
+ {
+  "nummer": 610,
+  "titel": "Google, Microsoft, Amazon Earnings: Cloud boomt, Aktien fallen",
+  "datum": "2026-10-30",
+  "dauer": 4529,
+  "audio": "https://traffic.megaphone.fm/LINDALA7221508467.mp3",
+  "guid": "e8cdca80-d49f-11f1-baa3-db907eeb71b0",
+  "beschreibung": "Alphabet verdoppelt den Cloud-Umsatz, bringt mit Gemini 4 Carbon das beste Modell auf den Markt und verliert trotzdem an einem Tag eine halbe Billion Dollar an Börsenwert. Warum bestraft die Börse ausgerechnet die Investitionen in das Geschäft, das am schnellsten wächst? Bei Microsoft ist Azure erstmals offiziell beziffert, Amazon kämpft mit einem verschobenen Prime Day, und Oracle verspricht für 2029 einen Cashflow, auf den Pip eine Wette anbietet. Dazu: acht Firmen, die in einem Jahr 300 Milliarden neuen Umsatz geschaffen haben, und die Frage, was teurer ist, zu viel oder zu wenig zu investieren. Reddit spürt den schwindenden Google-Traffic. Außerdem eine mutmaßliche chinesische Spionin im Umfeld von Jensen Huang, ein Hack bei Binance, Instagrams Schecks für Creator, Metas Mode-App Style Sketch und ein Accenture-Mitarbeiter, der seine private Claude-Instanz mit Pentagon-Daten verbunden hat. Und Glöckler versteigert ein iPhone Duo für den guten Zweck.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Alphabet-Zahlen"
+   },
+   {
+    "t": 1166,
+    "titel": "KI-Suchanzeigen"
+   },
+   {
+    "t": 1228,
+    "titel": "Gemini 4 Carbon"
+   },
+   {
+    "t": 1360,
+    "titel": "Microsoft-Zahlen"
+   },
+   {
+    "t": 2115,
+    "titel": "Amazon-Zahlen"
+   },
+   {
+    "t": 3097,
+    "titel": "Oracle"
+   },
+   {
+    "t": 3267,
+    "titel": "Reddit"
+   },
+   {
+    "t": 3497,
+    "titel": "iPhone Duo"
+   },
+   {
+    "t": 3819,
+    "titel": "Spionin bei Nvidia"
+   },
+   {
+    "t": 3996,
+    "titel": "Binance-Hack"
+   },
+   {
+    "t": 4099,
+    "titel": "Instagram zahlt Creator"
+   },
+   {
+    "t": 4208,
+    "titel": "Style Sketch"
+   },
+   {
+    "t": 4374,
+    "titel": "Schatten-KI im Pentagon"
+   }
+  ],
+  "slug": "610-google-microsoft-amazon-earnings-cloud-boomt-aktien-fallen"
+ },
+ {
+  "nummer": 609,
+  "titel": "Anthropics S-1: Warum überhaupt an die Börse?",
+  "datum": "2026-10-27",
+  "dauer": 4484,
+  "audio": "https://traffic.megaphone.fm/LINDALA1160565773.mp3",
+  "guid": "b16b9bf6-d23f-11f1-a33e-fb1bed88b6a3",
+  "beschreibung": "Anthropic hat seinen Börsenprospekt veröffentlicht, und die Zahlen erklären einiges über die Firma und über die KI-Blase. Wie schnell wächst der Umsatz wirklich, wo steckt die Marge, was hat es mit den 80 Milliarden Verlust auf sich, und warum geht eine Firma mit 130 Milliarden auf dem Konto überhaupt an die Börse? Dazu die Governance der sieben Gründer, eine Kennzahl, die selbst Snowflake alt aussehen lässt, und OpenAIs Antwort am selben Tag. Elon Musk sammelt 40 Milliarden Schulden für SpaceX ein und erklärt den Kreditmarkt für alle anderen für geschlossen. Apollos Chefökonom sieht keinen Ertrag von KI in der Breite der Wirtschaft, Meta plant bis zu 95 Milliarden an neuem Eigenkapital, CalPERS zieht sich aus Big Tech zurück, und Microsoft bietet 60.000 Mitarbeitenden eine Abfindung an. Außerdem Kimi K3.1, ein Qwen-Modell, das nach Peking funken wollte, Microsofts Medical Superintelligence, die größten Spender im US-Wahlkampf, Audi in Georgia, ein genervtes Weißes Haus, Anthropic und Hg, Max Viessmanns Einstieg beim FC Bayern und Helsings Drohnenjäger.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Anthropic-Prospekt"
+   },
+   {
+    "t": 1679,
+    "titel": "GPT-6.1 Terra"
+   },
+   {
+    "t": 2266,
+    "titel": "Preiskampf"
+   },
+   {
+    "t": 2480,
+    "titel": "SpaceX-Schulden"
+   },
+   {
+    "t": 2755,
+    "titel": "Zero Payoff"
+   },
+   {
+    "t": 2964,
+    "titel": "Meta-Kapitalerhöhung"
+   },
+   {
+    "t": 3065,
+    "titel": "CalPERS"
+   },
+   {
+    "t": 3147,
+    "titel": "Microsoft-Abfindungen"
+   },
+   {
+    "t": 3351,
+    "titel": "Kimi K3.1"
+   },
+   {
+    "t": 3411,
+    "titel": "Qwen funkt nach Hause"
+   },
+   {
+    "t": 3568,
+    "titel": "Medical Superintelligence"
+   },
+   {
+    "t": 3670,
+    "titel": "Wahlkampfspender"
+   },
+   {
+    "t": 3913,
+    "titel": "Audi bei Trump"
+   },
+   {
+    "t": 4054,
+    "titel": "Maulkorb für KI-Chefs"
+   },
+   {
+    "t": 4186,
+    "titel": "Anthropic und Hg"
+   },
+   {
+    "t": 4245,
+    "titel": "Viessmann und Bayern"
+   },
+   {
+    "t": 4379,
+    "titel": "Helsing"
+   }
+  ],
+  "slug": "609-anthropics-s-1-warum-ueberhaupt-an-die-boerse"
+ },
+ {
+  "nummer": 608,
+  "titel": "OpenAI Bewertung sinkt: Woran müssen Investoren glauben? | Räder an die Raketen: SpaceX kauft Tesla",
+  "datum": "2026-10-23",
+  "dauer": 6081,
+  "audio": "https://traffic.megaphone.fm/LINDALA7784180615.mp3",
+  "guid": "0d2c8d10-cf1b-11f1-9b8b-931027ab9d2d",
+  "beschreibung": "Woran muss man glauben, um bei OpenAI noch einzusteigen? Die nächste Finanzierungsrunde kommt aus den Emiraten und bleibt unter der erhofften Bewertung. SpaceX legt starke Zahlen vor, und die Aufsichtsräte von SpaceX und Tesla prüfen eine Fusion, die größte aller Zeiten. Entsteht da wirklich 1 plus 1 gleich 3, und für wen? Meta meldet zehn Millionen Muse-Downloads, wächst weiter zweistellig und baut eine neue Aktienklasse für Mark Zuckerberg. Legora wird mit 8,8 Milliarden bewertet, Salesforce kauft Braze, und Anthropics Prospektzahlen sorgen für dramatische Schlagzeilen. Eine KI findet eine Lücke in PHP, die einen Großteil des Internets betrifft. Dazu Axel Springers Idee, TikTok Europa zu kaufen, der Polymarket-CEO, ein gehacktes Handy von Jared Kushner, eine neue Doku über Christian Angermayer und genetisch verbesserte Militärhunde.",
+  "kapitel": [
+   {
+    "t": 0,
+    "titel": "Nvidia GTC Berlin"
+   },
+   {
+    "t": 308,
+    "titel": "OpenAI-Finanzierungsrunde"
+   },
+   {
+    "t": 1131,
+    "titel": "SpaceX-Zahlen"
+   },
+   {
+    "t": 2148,
+    "titel": "Fusion SpaceX und Tesla"
+   },
+   {
+    "t": 3109,
+    "titel": "Meta Muse"
+   },
+   {
+    "t": 3581,
+    "titel": "Meta-Zahlen"
+   },
+   {
+    "t": 3853,
+    "titel": "Zuckerbergs neue Aktien"
+   },
+   {
+    "t": 4204,
+    "titel": "Legora"
+   },
+   {
+    "t": 4311,
+    "titel": "Salesforce kauft Braze"
+   },
+   {
+    "t": 4851,
+    "titel": "Anthropic-Prospekt"
+   },
+   {
+    "t": 5121,
+    "titel": "KI-Lücke in PHP"
+   },
+   {
+    "t": 5206,
+    "titel": "Polymarket-CEO"
+   },
+   {
+    "t": 5274,
+    "titel": "Springer und TikTok"
+   },
+   {
+    "t": 5391,
+    "titel": "SAP und Spotify"
+   },
+   {
+    "t": 5544,
+    "titel": "Kushners Handy"
+   },
+   {
+    "t": 5717,
+    "titel": "Angermayer-Doku"
+   },
+   {
+    "t": 5860,
+    "titel": "Militärhunde"
+   },
+   {
+    "t": 5942,
+    "titel": "AfD-Mail-Hack"
+   }
+  ],
+  "slug": "608-openai-bewertung-sinkt-woran-muessen-investoren-glauben-raed"
+ }
+]

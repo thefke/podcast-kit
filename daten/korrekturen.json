@@ -1,0 +1,7 @@
+{
+  "hinweis": "Wiederkehrende Hörfehler der Transkription. Jede Zeile [falsch, richtig] gilt für alle Folgen, angewendet beim Build in src/lib/daten.ts.",
+  "ersetzen": [
+    ["Ich bin Philipp Klöckner und telefoniere", "Ich bin Philipp Glöckler und telefoniere"],
+    ["Glöckner", "Glöckler"]
+  ]
+}

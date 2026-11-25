@@ -1,0 +1,111 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { KONFIG, folgen, transkript, folgenUrl, uhr, anker, datumDe, minuten, type Folge } from '../../../lib/daten';
+
+export function getStaticPaths() {
+  return folgen.map((f) => ({ params: { slug: f.slug }, props: { folge: f } }));
+}
+const { folge } = Astro.props as { folge: Folge };
+const zeilen = transkript(folge);
+const url = folgenUrl(folge);
+const spiel = {
+  'data-play': String(folge.nummer),
+  'data-play-src': folge.audio,
+  'data-play-titel': `#${folge.nummer} ${folge.titel}`,
+  'data-play-url': url,
+  'data-play-kapitel': JSON.stringify(folge.kapitel),
+};
+// Kapitel springen zum Transkript-Absatz, der vor oder auf der Kapitelzeit beginnt
+const kapitelZiel = (t: number) => { const z = [...zeilen].reverse().find((x) => x.a <= t); return z ? anker(z.a) : ''; };
+const namen = [...new Set(zeilen.map((z) => z.name))];
+const jsonld = {
+  '@context': 'https://schema.org', '@type': 'PodcastEpisode', name: folge.titel, episodeNumber: folge.nummer,
+  datePublished: folge.datum, timeRequired: `PT${Math.round(folge.dauer / 60)}M`, description: folge.beschreibung,
+  associatedMedia: { '@type': 'MediaObject', contentUrl: folge.audio },
+  partOfSeries: { '@type': 'PodcastSeries', name: KONFIG.name, url: KONFIG.website },
+  ...(zeilen.length ? { transcript: new URL(`${url}transkript.vtt`, Astro.site).href } : {}),
+};
+---
+<Base title={`#${folge.nummer} ${folge.titel} · ${KONFIG.name}`} description={folge.beschreibung.slice(0, 160)} jsonld={jsonld}>
+  <div data-pagefind-body>
+    <span hidden data-pagefind-meta={`titel:#${folge.nummer} ${folge.titel}`}></span>
+    <span hidden data-pagefind-meta={`nummer:${folge.nummer}`}></span>
+    <span hidden data-pagefind-meta={`datum:${datumDe(folge.datum)}`}></span>
+    <span hidden data-pagefind-meta={`audio:${folge.audio}`}></span>
+    <span hidden data-pagefind-filter={`jahr:${folge.datum.slice(0, 4)}`}></span>
+
+    <header class="wrap folge-kopf">
+      <span class="lab">Folge {folge.nummer}</span>
+      <h1>{folge.titel}</h1>
+      <p class="meta">{datumDe(folge.datum)} · {minuten(folge.dauer)}{namen.length ? ` · ${namen.join(', ')}` : ''}</p>
+      <p class="beschreibung">{folge.beschreibung}</p>
+      <p data-pagefind-ignore><a class="btn" href={url} {...spiel}>Folge hören</a></p>
+    </header>
+
+    <div class="wrap folge-grid">
+      <section aria-labelledby="h-tr" class="sec" style="padding-top:0">
+        <h2 id="h-tr">Transkript</h2>
+        {zeilen.length ? (
+          <>
+            <div class="tr-werkzeug" data-pagefind-ignore>
+              <label><input type="checkbox" data-mitlesen checked /> Mitlesen beim Hören</label>
+              <a href={`${url}transkript.vtt`}>WebVTT</a>
+            </div>
+            <ol class="turns" data-turns data-folge={folge.nummer}>
+              {zeilen.map((z) => (
+                <li id={anker(z.a)} class={`h${z.host}`} data-ab={z.a}>
+                  <a class="t" href={`#${anker(z.a)}`} {...spiel} data-play-zeit={String(z.a)} aria-label={`Ab ${uhr(z.a)} hören`} data-pagefind-ignore>{uhr(z.a)}</a>
+                  <div><b>{z.name}:</b> <p>{z.t}</p></div>
+                </li>
+              ))}
+            </ol>
+          </>
+        ) : <p>Für diese Folge gibt es noch kein Transkript.</p>}
+      </section>
+
+      {folge.kapitel.length > 0 && (
+        <aside class="kapitel-box" aria-labelledby="h-kap" data-pagefind-ignore>
+          <h2 id="h-kap">Kapitel</h2>
+          <ol class="kapitel" data-kapitel>
+            {folge.kapitel.map((k) => (
+              <li data-ab={k.t}>
+                <a href={`#${kapitelZiel(k.t)}`} {...spiel} data-play-zeit={String(k.t)}><span class="t">{uhr(k.t)}</span><span>{k.titel}</span></a>
+              </li>
+            ))}
+          </ol>
+          <a href={`${url}kapitel.json`} class="lab">Kapitel als JSON</a>
+        </aside>
+      )}
+    </div>
+  </div>
+</Base>
+
+<script>
+  // Mitlesen: Der Player meldet die Zeit, die Seite markiert Absatz und Kapitel und zieht beim Hören mit.
+  function bereit() {
+    const turns = document.querySelector<HTMLElement>('[data-turns]');
+    if (!turns || turns.dataset.bereit) return;
+    turns.dataset.bereit = '1';
+  }
+  document.addEventListener('pk:zeit', (e) => {
+    const d = (e as CustomEvent).detail as { id?: string; t: number; laeuft: boolean };
+    const turns = document.querySelector<HTMLElement>('[data-turns]');
+    if (!turns || d.id !== turns.dataset.folge) return;
+    const markiere = (liste: NodeListOf<HTMLElement>) => {
+      let aktiv: HTMLElement | undefined;
+      liste.forEach((li) => { if (Number(li.dataset.ab) <= d.t) aktiv = li; });
+      liste.forEach((li) => li.classList.toggle('jetzt', li === aktiv && d.laeuft));
+      return aktiv;
+    };
+    const zeile = markiere(turns.querySelectorAll<HTMLElement>('li'));
+    markiere(document.querySelectorAll<HTMLElement>('[data-kapitel] li'));
+    const folgen = document.querySelector<HTMLInputElement>('[data-mitlesen]')?.checked;
+    if (d.laeuft && folgen && zeile && zeile.dataset.gezeigt !== '1') {
+      turns.querySelectorAll<HTMLElement>('li[data-gezeigt]').forEach((li) => delete li.dataset.gezeigt);
+      zeile.dataset.gezeigt = '1';
+      zeile.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+  });
+  document.addEventListener('astro:page-load', bereit);
+  bereit();
+</script>

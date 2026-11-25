@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import FolgenListe from '../../components/FolgenListe.astro';
+import { KONFIG, folgen } from '../../lib/daten';
+---
+<Base title={`Alle Folgen · ${KONFIG.name}`} description={`Alle ${folgen.length} Folgen von ${KONFIG.name} mit Transkript und Kapiteln.`}>
+  <section class="wrap hero">
+    <span class="lab">Archiv</span>
+    <h1>Alle {folgen.length} Folgen</h1>
+  </section>
+  <section class="wrap sec">
+    <FolgenListe folgen={folgen} />
+  </section>
+</Base>

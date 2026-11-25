@@ -1,0 +1,55 @@
+{
+  "name": "Doppelgänger Podcast",
+  "kurzname": "Doppelgänger",
+  "feed": "https://feeds.megaphone.fm/LINDALA4208458418",
+  "website": "https://www.doppelgaenger.io/",
+  "sprache": "de",
+  "assemblyai_api": "https://api.eu.assemblyai.com/v2",
+  "assemblyai_modell": "universal-3-5-pro",
+  "begriffe": [
+    "Philipp Glöckler",
+    "Philipp Klöckner",
+    "Pip",
+    "Doppelgänger",
+    "Jan Kuhn",
+    "Nvidia",
+    "Jensen Huang",
+    "Anthropic",
+    "OpenAI",
+    "Claude",
+    "Gemini",
+    "xAI",
+    "Databricks",
+    "CrowdStrike",
+    "Zscaler",
+    "Scalable Capital",
+    "Qonto",
+    "Leapsome",
+    "Earnings",
+    "IPO"
+  ],
+  "sprecher": {
+    "hinweis": "AssemblyAI liefert Sprecher A, B, C. scripts/sprecher.py ordnet sie nach diesen Regeln zu und schreibt daten/sprecher.json, dort lässt sich jede Folge von Hand korrigieren.",
+    "namen": [
+      "Philipp Glöckler",
+      "Philipp Klöckner"
+    ],
+    "anrede": {
+      "Philipp Klöckner": [
+        "Pip"
+      ],
+      "Philipp Glöckler": [
+        "Glöckler",
+        "Glöckel"
+      ]
+    },
+    "eroeffnung": {
+      "Philipp Glöckler": "Willkommen zum Doppelgänger"
+    },
+    "einspieler": [
+      "Anlageberatung",
+      "Werbeunterbrechung"
+    ]
+  },
+  "indexieren": false
+}

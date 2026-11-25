@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import FolgenListe from '../components/FolgenListe.astro';
+import { KONFIG, folgen, transkript, woerter, zahl, u } from '../lib/daten';
+
+const mitTranskript = folgen.filter((f) => transkript(f).length);
+const gesamtWoerter = mitTranskript.reduce((n, f) => n + transkript(f).reduce((m, z) => m + woerter(z.t), 0), 0);
+const stunden = Math.round(folgen.reduce((n, f) => n + f.dauer, 0) / 3600);
+const beispiele = ['Nvidia', 'Anthropic', 'Rechenzentrum', 'Börsengang', 'Tesla'];
+---
+<Base title={`${KONFIG.name}: alle Folgen durchsuchbar`} description={`Jede Folge von ${KONFIG.name} mit Transkript, Kapiteln und Volltextsuche bis zur Minute.`}>
+  <section class="wrap hero">
+    <span class="lab">{folgen.length} Folgen · {stunden} Stunden · {zahl(Math.round(gesamtWoerter / 1000) * 1000)} Wörter</span>
+    <h1>Wer hat das wann gesagt?</h1>
+    <p class="sub">Durchsuch jedes gesprochene Wort. Jeder Treffer führt zur Minute in der Folge, ein Klick spielt ab genau da.</p>
+    <form class="such-form" action={u('suche/')} method="get" role="search">
+      <label class="sr" for="q-start">Suchbegriff</label>
+      <input id="q-start" name="q" type="search" placeholder="Zum Beispiel: Nvidia" autocomplete="off" />
+      <button class="btn" type="submit">Suchen</button>
+    </form>
+    <p class="beispiele">Probier: {beispiele.map((b, i) => <>{i > 0 && ' · '}<a href={u(`suche/?q=${encodeURIComponent(b)}`)}>{b}</a></>)}</p>
+  </section>
+  <section class="wrap sec" aria-labelledby="h-neu">
+    <h2 id="h-neu">Neueste Folgen</h2>
+    <FolgenListe folgen={folgen.slice(0, 5)} />
+    <p><a class="btn leise" href={u('folgen/')}>Alle Folgen</a></p>
+  </section>
+</Base>

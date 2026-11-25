@@ -1,0 +1,52 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Player from '../components/Player.astro';
+import { KONFIG, u } from '../lib/daten';
+import '../styles/kit.css';
+
+interface Props { title: string; description: string; jsonld?: object }
+const { title, description, jsonld } = Astro.props;
+const pfad = Astro.url.pathname;
+const aktiv = (p: string) => (pfad.startsWith(u(p)) ? 'page' : undefined);
+const canonical = new URL(pfad, Astro.site).href;
+const indexieren = KONFIG.indexieren === true;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!indexieren && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+    <ClientRouter />
+  </head>
+  <body>
+    <header class="kopf">
+      <div class="wrap">
+        <a class="marke" href={u('/')}>{KONFIG.name}</a>
+        <nav class="navi" aria-label="Hauptnavigation">
+          <a href={u('folgen/')} aria-current={aktiv('folgen/')}>Folgen</a>
+          <a href={u('suche/')} aria-current={aktiv('suche/')}>Suche</a>
+          <a href={u('zahlen/')} aria-current={aktiv('zahlen/')}>Zahlen</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="fuss">
+      <div class="wrap">
+        <span>Transkripte automatisch erstellt, Fehler sind möglich.</span>
+        <span>Gebaut mit dem <a href="https://github.com/thefke/podcast-kit">podcast-kit</a></span>
+      </div>
+    </footer>
+    <Player />
+  </body>
+</html>

@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { KONFIG, folgen, transkript, woerter, zahl, folgenUrl, minuten } from '../lib/daten';
+
+// Archiv in Zahlen: alles beim Build aus Feed und Transkripten gezählt, nichts von Hand gepflegt.
+const mitTr = folgen.filter((f) => transkript(f).length);
+const stunden = folgen.reduce((n, f) => n + f.dauer, 0) / 3600;
+const proName = new Map<string, number>();
+const proFolge = mitTr.map((f) => {
+  const z = transkript(f);
+  const je = new Map<string, number>();
+  for (const x of z) {
+    const w = woerter(x.t);
+    je.set(x.name, (je.get(x.name) ?? 0) + w);
+    proName.set(x.name, (proName.get(x.name) ?? 0) + w);
+  }
+  const summe = [...je.values()].reduce((a, b) => a + b, 0);
+  return { f, summe, je };
+});
+const gesamt = [...proName.values()].reduce((a, b) => a + b, 0);
+// Einspieler und weitere Stimmen kommen in eine Zeile, die Hosts stehen einzeln
+const NEBEN = new Set(['Einspieler', 'Weitere Stimme']);
+const neben = [...proName.entries()].filter(([n]) => NEBEN.has(n) || n.startsWith('Sprecher ')).reduce((a, [, w]) => a + w, 0);
+const sprecher = [...[...proName.entries()].filter(([n]) => !NEBEN.has(n) && !n.startsWith('Sprecher ')).sort((a, b) => b[1] - a[1]), ...(neben ? [['Einspieler und weitere Stimmen', neben] as [string, number]] : [])];
+const anteil = (w: number, von: number) => (von ? Math.round((w / von) * 100) : 0);
+const wpm = gesamt && mitTr.length ? Math.round(gesamt / (mitTr.reduce((n, f) => n + f.dauer, 0) / 60)) : 0;
+const haupt = sprecher.filter(([n]) => !n.startsWith('Einspieler')).slice(0, 2).map(([n]) => n);
+---
+<Base title={`Archiv in Zahlen · ${KONFIG.name}`} description={`${KONFIG.name} in Zahlen: Stunden, Wörter und wer wie viel redet.`}>
+  <section class="wrap hero">
+    <span class="lab">Archiv in Zahlen</span>
+    <h1>{Math.round(stunden)} Stunden, {zahl(Math.round(gesamt / 1000) * 1000)} Wörter</h1>
+    <p class="sub">Gezählt aus {mitTr.length} automatischen Transkripten. Wer redet mehr?</p>
+  </section>
+  <section class="wrap sec" aria-labelledby="h-k">
+    <h2 id="h-k" class="sr">Kennzahlen</h2>
+    <div class="kacheln">
+      <div class="kachel"><b>{folgen.length}</b><span>Folgen</span></div>
+      <div class="kachel"><b>{Math.round(stunden)}</b><span>Stunden Gespräch</span></div>
+      <div class="kachel"><b>{zahl(gesamt)}</b><span>gesprochene Wörter</span></div>
+      <div class="kachel"><b>{wpm}</b><span>Wörter pro Minute</span></div>
+    </div>
+  </section>
+  <section class="wrap sec" aria-labelledby="h-a">
+    <h2 id="h-a">Redeanteil</h2>
+    <div class="anteil">
+      {sprecher.map(([name, w]) => (
+        <div class="anteil-zeile">
+          <span>{name}</span>
+          <span class="anteil-balken" aria-hidden="true"><i style={`width:${anteil(w, gesamt)}%`}></i></span>
+          <span>{anteil(w, gesamt)} %</span>
+        </div>
+      ))}
+    </div>
+    <p class="hinweis-klein">Gezählt nach Wörtern. Die Sprechertrennung macht die Transkription automatisch und kann einzelne Absätze dem falschen Sprecher geben.</p>
+  </section>
+  <section class="wrap sec" aria-labelledby="h-f">
+    <h2 id="h-f">Je Folge</h2>
+    <div class="tabelle">
+      <table>
+        <thead><tr><th>Folge</th><th class="z">Dauer</th><th class="z">Wörter</th>{haupt.map((n) => <th class="z">{n}</th>)}</tr></thead>
+        <tbody>
+          {proFolge.map(({ f, summe, je }) => (
+            <tr>
+              <td><a href={folgenUrl(f)}>#{f.nummer} {f.titel}</a></td>
+              <td class="z">{minuten(f.dauer)}</td>
+              <td class="z">{zahl(summe)}</td>
+              {haupt.map((n) => <td class="z">{anteil(je.get(n) ?? 0, summe)} %</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>

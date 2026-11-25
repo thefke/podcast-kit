@@ -1,0 +1,17 @@
+---
+import { type Folge, folgenUrl, datumDe, minuten } from '../lib/daten';
+interface Props { folgen: Folge[] }
+const { folgen } = Astro.props;
+---
+<ol class="liste">
+  {folgen.map((f) => (
+    <li>
+      <a href={folgenUrl(f)}>
+        <span class="nr">#{f.nummer}</span>
+        <span class="ti">{f.titel}</span>
+        <span class="me">{datumDe(f.datum)} · {minuten(f.dauer)}</span>
+        <span class="be">{f.beschreibung}</span>
+      </a>
+    </li>
+  ))}
+</ol>
